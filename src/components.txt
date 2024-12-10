@@ -1,0 +1,25 @@
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+
+const Contacts = () => {
+    const [contacts, setContacts] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:5000/api/contacts')
+            .then(response => setContacts(response.data))
+            .catch(error => console.error(error));
+    }, []);
+
+    return (
+        <div>
+            <h1>Contacts</h1>
+            <ul>
+                {contacts.map(contact => (
+                    <li key={contact.id}>{contact.name} - {contact.email}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default Contacts;
